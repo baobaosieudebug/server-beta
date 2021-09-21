@@ -7,17 +7,31 @@ const db = require('./config/database.ts');
 const typeDefs = require('./types/typeDefs');
 const resolvers = require('./resolvers/resolvers');
 const cors = require('cors');
+const socket = require('./socket/socket');
+bodyParser = require('body-parser');
+
 
 const port  = process.env.PORT;
 
 // Connect database
 db.connect();
 
-const app = express();
+app = express().use(bodyParser.json());
 const httpServer = http.createServer(app);
 const route = require('./routes');
 
+const io = require('socket.io')(httpServer, {
+  cors: {
+    origin: '*',
+  },
+});
+
+socket(io);
+
+
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 route(app);
 
 const server = new ApolloServer({
@@ -32,6 +46,16 @@ async function startApolloServer() {
 }
 startApolloServer();
 
-app.listen(port, () => {
+
+httpServer.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+module.exports = io;
+
+
+//on su kien tu webhook
+// emit su kien len admin
+
+//on su kien tu admin emit
+// goi lai web hook de hien thi ra text

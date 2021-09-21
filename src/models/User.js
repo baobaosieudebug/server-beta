@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
     userId: String,
     name: String,
     chatArr: [Chat],
+
 });
 
 const User= mongoose.model('user',UserSchema);
