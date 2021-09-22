@@ -44,7 +44,7 @@ function route(app) {
     console.log('text',received_message.text);
     if (received_message.text) {
       let contents = await Content.findOne({_id:process.env.ID});
-      console.log('CONTENTS',contents);
+      // console.log('CONTENTS',contents);
       let stateUser = await state.findOne({ userId: sender_psid });
       if(stateUser &&  stateUser.isAdmin) {
         const io = require('../server');
@@ -64,6 +64,7 @@ function route(app) {
         const pattern = new RegExp(item.regex, 'g');
         return pattern.test(commandString);
       });
+      console.log('matchitem',matchItem)
       if (!matchItem) {
         const condition = stateUser.language === 'en' ? 'not_found' : 'not_found:vi';
         const notFound = contents.content.find((node) => {
@@ -98,7 +99,7 @@ function route(app) {
             payload: JSON.stringify(button),
           };
         });
-
+        console.log(newArrButton);
         response = {
           attachment: {
             type: 'template',
