@@ -46,11 +46,14 @@ function route(app) {
       let contents = await Content.findOne({_id:process.env.ID});
       // console.log('CONTENTS',contents);
       let stateUser = await state.findOne({ userId: sender_psid });
+      console.log('stateuser',stateUser);
       if(stateUser &&  stateUser.isAdmin) {
+        console.log('chatadmin');
         const io = require('../server');
         io.sockets.emit('getChatUser', { message: received_message.text, isUser: true });
         return;
       }
+      console.log('rangoai');
       const commandString = received_message.text.toLowerCase();
       const nodeRegArr = [];
       contents.content.forEach((node) => {
