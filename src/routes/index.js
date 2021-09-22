@@ -41,7 +41,7 @@ function route(app) {
 
   async function handleMessage(sender_psid, received_message) {
     let response;
-    console.log(received_message);
+    console.log('text',received_message.text);
     if (received_message.text) {
       let contents = await Content.findOne({ userId: sender_psid });
       let stateUser = await state.findOne({ userId: sender_psid });
