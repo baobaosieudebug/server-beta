@@ -225,7 +225,9 @@ function route(app) {
         if (!error && response.statusCode == 200) {
           const recipientId = body.recipient_id;
           const messageId = body.message_id;
+          console.log("thanhcong");
         } else {
+          console.log("thatbai");
           console.log(error);
         }
       }
