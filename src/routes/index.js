@@ -94,30 +94,30 @@ function route(app) {
         callSendAPI(sender_psid, response);
       } else {
         const data = contents.content[0];
-        console.log('data',data);
-        let newArrButton = data.buttons.map((button) => {
-          console.log('button',button,button.text);
-          return {
-            type: 'postback',
-            title: button.text,
-            payload: JSON.stringify(button),
-          };
-        });
-        console.log(newArrButton);
+        let arrButton = [];
+        for (const button of data.buttons) {
+            arrButton.push(button);
+        }
+        let newArrButton = arrButton.map(button => {
+                return {
+                    "type": "postback",
+                    "title": button.text,
+                    "payload": JSON.stringify(button),
+                }
+            }
+        )
         response = {
-          attachment: {
-            type: 'template',
-            payload: {
-              template_type: 'generic',
-              elements: [
-                {
-                  title: data.text,
-                  buttons: newArrButton,
-                },
-              ],
-            },
-          },
-        };
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                        "title": data.text,
+                        "buttons": newArrButton,
+                    }]
+                }
+            }
+        }
         callSendAPI(sender_psid, response);
       }
     }
