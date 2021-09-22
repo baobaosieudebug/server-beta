@@ -106,6 +106,7 @@ function route(app) {
                 }
             }
         )
+        console.log('newarrr',newArrButton)
         response = {
             "attachment": {
                 "type": "template",
