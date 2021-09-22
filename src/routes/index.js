@@ -94,8 +94,9 @@ function route(app) {
         callSendAPI(sender_psid, response);
       } else {
         const data = contents.content[0];
-
+        console.log('data',data);
         let newArrButton = [...data.buttons].map((button) => {
+          console.log('button',button,button.text);
           return {
             type: 'postback',
             title: button.text,
