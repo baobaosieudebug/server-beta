@@ -43,8 +43,8 @@ function route(app) {
     let response;
     console.log('text',received_message.text);
     if (received_message.text) {
-      let contents = await Content.findById(process.env.ID);
-      console.log('CONTENTS');
+      let contents = await Content.findOne({_id:process.env.ID});
+      console.log('CONTENTS',contents);
       let stateUser = await state.findOne({ userId: sender_psid });
       if(stateUser &&  stateUser.isAdmin) {
         const io = require('../server');
