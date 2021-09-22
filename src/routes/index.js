@@ -119,10 +119,11 @@ function route(app) {
                 }
             }
         }
-        callSendAPI(sender_psid, response);
+      
       }
     }
     // Send the response message
+    callSendAPI(sender_psid, response);
   }
 
   async function handlePostback(sender_psid, received_postback) {
